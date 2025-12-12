@@ -87,7 +87,7 @@ forge create Counter --private-key $PRIVATE_KEY --rpc-url $SEPOLIA_RPC_URL --bro
 ```
 **在代码中加载账号**
 
- ![image](.\image.png)
+ ![image](image.png)
 
 部署合约：forge script .\script\Counter.s.sol --rpc-url local --broadcast
 
@@ -137,7 +137,7 @@ cast abi-encode "constructor(string,string)" "OpenSpace S6"“OS6” abi参数�
 允许开发者在本地环境中运行一个轻量级的以太坊节点。要启动 Anvil，只需在命令行中输入 anvil，它将自动启动一个本地节点。启动后，你将看到一系列已生成的开发账户和私钥，以及节点侦听的地址和端口信息。
 
 输出将包括多个开发账户、私钥以及监听的端口。
-![image](.\image-1.png)
+![image](image-1.png)
 
 ```
 anvil 启动模拟本地以太坊节点
@@ -209,7 +209,7 @@ v 越多，显⽰的测试报告越详细
 forge test —gas-report
 forge test test/Counter.t.sol --fuzz-runs 2000 -vv --gas-report
  ```
-![image](.\image-2.png)
+![image](image-2.png)
 
 为Gas消耗生成一个快照文件(默认为 .gas-snapshot)
 ```

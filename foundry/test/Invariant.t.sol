@@ -20,7 +20,7 @@ contract MyERC20Test is Test {
             token.transfer(user, 1000 * 10 ** 18);
         }
         users.push(address(this));
-        
+        console.log("users.length", users.length);
         // 配置不变性测试的目标合约
         targetContract(address(this));
         // targetSelector(address(token), "transfer(address,uint256)");

@@ -87,7 +87,7 @@ forge create Counter --private-key $PRIVATE_KEY --rpc-url $SEPOLIA_RPC_URL --bro
 ```
 **在代码中加载账号**
 
- ![image](image.png)
+ ![image](.\image.png)
 
 部署合约：forge script .\script\Counter.s.sol --rpc-url local --broadcast
 

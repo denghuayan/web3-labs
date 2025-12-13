@@ -92,8 +92,8 @@ function main() {
     const { publicKey, privateKey } = generateRSAKeyPair();
     
     // 2. 使用 POW 算法找到满足条件的哈希值
-    const prefix = "baiqiowo";
-    const powResult = mine(prefix, 4);
+    const prefix = "0xc3E8ff07837d19F57c22C94fCa2dd948E7d96c56";
+    const powResult = mine(prefix, 5);
     
     console.log('\n挖矿结果:');
     console.log(`花费时间: ${powResult.timeSpent.toFixed(2)} 秒`);

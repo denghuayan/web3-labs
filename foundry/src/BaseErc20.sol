@@ -16,9 +16,6 @@ import {console} from "forge-std/console.sol";
 允许被授权的地址消费他们被授权的 Token 数量（transferFrom）；
 转帐超出余额时抛出异常(require)，异常信息：“ERC20: transfer amount exceeds balance”
 转帐超出授权数量时抛出异常(require)，异常消息：“ERC20: transfer amount exceeds allowance”。
-注意：
-在编写合约时，需要遵循 ERC20 标准，此外也需要考虑到安全性，确保转账和授权功能在任何时候都能正常运行无误。
-代码模板中已包含基础框架，只需要在标记为“Write your code here”的地方编写你的代码。不要去修改已有内容！
  */
 
 contract BaseERC20 {
@@ -28,4 +25,52 @@ contract BaseERC20 {
     uint256 public totalSupply;
     mapping(address => uint256) balances;
     mapping(address=>mapping(address=>uint256)) allowances;
+
+     event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    constructor() public {
+        name = "BaseERC20";
+        symbol = "BERC20" ;
+        decimals = 18;
+        totalSupply = 100000000*10**decimals;
+        balances[msg.sender] = totalSupply;
+    }
+
+    function balanceOf(address _addr) external view returns (uint256) {
+        return balances[_addr];
+    }
+
+    function transfer(address to,uint256 value) public returns(bool){
+        require(to != address(0),"transfer the zero address");
+        require(balances[msg.sender] >= value,"transfer amount exceeds balance");
+        require(allowances[msg.sender][to] >= value,"transfer amount exceeds approve amount");
+        balances[msg.sender] -= value;
+        balances[to] += value;
+        allowances[msg.sender][to] -= value;
+
+        emit Transfer(msg.sender, to, value); 
+        return true;
+
+    }
+    function transferFrom(address from,address to,uint256 value) public returns(bool){
+        require(to != address(0),"transfer the zero address");
+        require(balances[from] >= value,"transfer amount exceeds balance");
+        require(allowances[from][to] >= value,"transfer amount exceeds approve amount");
+        balances[from] -= value;
+        balances[to] += value;
+        allowances[from][to] -= value;
+        emit Transfer(from, to, value); 
+        return true;
+    }
+    //approve transfer amount
+    function approve(address _spender,uint256 value) public returns(bool){
+        require(_spender != address(0),"approve to the zero address");
+        allowances[msg.sender][_spender] = value ;
+        emit Approval(msg.sender,_spender,value);
+        return true;
+    }
+    function allowance(address _from,address _spender) public view returns(uint256){
+        return allowances[_from][_spender];
+    }
 }
